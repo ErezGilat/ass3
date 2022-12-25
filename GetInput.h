@@ -13,6 +13,6 @@ Distance *getDistanceType(string input);
 
 int getK(string input);
 
-std::vector<double> getVector(int vectorsSize);
+std::vector<double> getVector(string vec, int vectorsSize);
 
 #endif

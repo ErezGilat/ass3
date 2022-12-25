@@ -49,8 +49,7 @@ int getK(string input) {
     if (isItProperInput(input,ruleStrK)==true){
         k = stoi(input);
     } else {
-        std::cout << "Error, Please enter correct K next time" << std::endl;
-        exit (1);
+        return -1;
     }
     return k;
 }
@@ -74,24 +73,18 @@ Distance *getDistanceType(string input)
         d = new Minkowski(2);
     }
     else {
-        std::cout << "Error, Please enter correct distance type next time" << std::endl;
-        exit (1);
+        return NULL;
     }
     return d;
 }
 // This function gets a vector from the user and returns it
-vector<double> getVector(int vectorsSize) {
+vector<double> getVector(string vec, int vectorsSize) {
     std::string ruleStrVec = "^[0-9]*(.[0-9]+)?( [0-9]*(.[0-9]+)?)*$";
-    std::string inputStrVec;
-    do {
-        std::getline(std::cin, inputStrVec);
-        if (isItProperInput(inputStrVec, ruleStrVec) == true) {
-            break;
-        }
-        std::cout << "Please enter correct vector" << std::endl;
-    } while (true);
+    if (isItProperInput(vec, ruleStrVec) == false) {
+        return vector<double>();
+    }
     std::vector <double> finalVector;
-    std::stringstream check1(inputStrVec);
+    std::stringstream check1(vec);
     std::string intermediate;
     while (std::getline(check1, intermediate, ' '))
     {
@@ -101,14 +94,11 @@ vector<double> getVector(int vectorsSize) {
         }
         catch(const std::exception& e)
         {
-            std::cout << "Error, Please enter correct vector" << std::endl;
-            finalVector = getVector(vectorsSize);
-            break;
+            return vector<double>();
         }
     }
     if (finalVector.size()!=vectorsSize){
-        cout<<"Error, please enter vector in correct size"<<endl;
-        finalVector=getVector(vectorsSize);
+        return vector<double>();
     }
     return finalVector;
 }
