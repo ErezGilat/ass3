@@ -26,7 +26,7 @@ int main (int size, char ** args) {
     // if not, use default port
     int serverPort = 0;
     int k;
-    if (size != 2) {
+    if (size != 3) {
         cout << "Error, Please Enter correct input next time" << endl;
         exit(1); 
     }
