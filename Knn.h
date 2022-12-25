@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 #include "ClassifiedVector.h"
-#include "Distance.h"
+#include "distances/Distance.h"
 #include "DataSet.h"
 // Knn class
 class Knn{

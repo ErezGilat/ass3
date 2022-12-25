@@ -6,7 +6,7 @@
 #include <list>
 #include "DataSet.h"
 #include "ClassifiedVector.h"
-#include "Distance.h"
+#include "distances/Distance.h"
 using namespace std;
 // DataSet class - holds a vector of ClassifiedVector objects
 class DataSet

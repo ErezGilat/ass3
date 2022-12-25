@@ -3,7 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include "Distance.h"
+#include "distances/Distance.h"
 using namespace std;
 
 // ClassifiedVector class

@@ -2,11 +2,12 @@
 #include <vector>
 #include <string>
 #include <cmath>
-#include "Distance.h"
-#include "Manhattan.h"
-#include "Euclidean.h"
-#include "Minkowski.h"
-#include "Chebyshev.h"
+#include "distances/Distance.h"
+#include "distances/Manhattan.h"
+#include "distances/Canberra.h"
+#include "distances/Euclidean.h"
+#include "distances/Minkowski.h"
+#include "distances/Chebyshev.h"
 #include "DataSet.h"
 #include "ClassifiedVector.h"
 #include "Knn.h"

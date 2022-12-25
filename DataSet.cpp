@@ -6,7 +6,7 @@
 #include <sstream>
 #include "DataSet.h"
 #include "ClassifiedVector.h"
-#include "Distance.h"
+#include "distances/Distance.h"
 using namespace std;
 
 // Constructor
