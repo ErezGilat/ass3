@@ -2,7 +2,7 @@
 #include <vector>
 #include <string>
 #include "ClassifiedVector.h"
-#include "distances/Distance.h"
+#include "Distance.h"
 using namespace std;
 // Constructor
 ClassifiedVector::ClassifiedVector(vector<double> v, string s){

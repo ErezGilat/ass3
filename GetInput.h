@@ -2,7 +2,7 @@
 #define INPUT_H_
 #include <iostream>
 #include <vector>
-#include "distances/Distance.h"
+#include "Distance.h"
 using namespace std;
 
 bool isItProperInput(const std::string& inputStr, const std::string& pattern);
