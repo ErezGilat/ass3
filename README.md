@@ -15,7 +15,8 @@ Then, in order to run the program you will need to write the following commands 
 
 ```
 FILE_OF_CLASSIFIED.CSV - file in csv format that contains the values and the classifications.
-PORT - the port number that you want to use for the sever to listen in
+
+PORT - the port number that you want to use for the sever to listen in.
 
 example:
 
@@ -38,8 +39,24 @@ example:
 
 ```
 ./client.out 127.0.0.1 12345
+
 ```
 
 This command will generate a connection to a the server with the ip 127.0.0.1 (local host) and port 12345 -
-it will actually connect to the server that we launched aboved.
+it will actually connect to the server that we launched above.
 
+### how to run inputs on the client - 
+
+When the client was launched sucssesfly and connected to server you are now able to send requests 
+and get the KNN classifictaion of a certian vector by using the following command:
+
+```
+VECTOR DIS K
+```
+VECTOR - a vector 
+
+example:
+```
+1 2 3 4 AUC 4
+
+```
