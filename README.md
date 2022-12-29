@@ -53,10 +53,14 @@ and get the KNN classifictaion of a certian vector by using the following comman
 ```
 VECTOR DIS K
 ```
-VECTOR - a vector 
+VECTOR - a vector for classification  - in the follwoing format 'x x x x'.
+DIS -  optional distacnce functions MAN - Mannahtan AUC - Euclidean MIN - Minkovsky CHB - Chebychve CAN - Cannabra.
+K - the number of neigboors we want to take into consideration.
 
 example:
 ```
 1 2 3 4 AUC 4
 
 ```
+this line will send a request to the server to predict the value of the vector: 1 2 3 4 with Euclidean 
+distance function and 4 neighboors.
