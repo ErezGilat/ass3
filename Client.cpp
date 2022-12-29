@@ -38,26 +38,30 @@ int main(int size, char** args){
     sin.sin_port = htons(port_no);
     if(connect(sock,(struct sockaddr *)&sin, sizeof(sin))<0){
         perror("error connecting to server");
+        exit(1);
     }
     while (true){
         string data;
-        cin>>data;
+        getline(cin,data);
         if (data=="-1"){
             break;
         }
         int dataLen = strlen(data.c_str());
         int sentBytes = send (sock, data.c_str(),dataLen,0);
         char buffer[4096];
+        memset (&buffer, 0,sizeof(buffer));
         int expectedDataLen = sizeof(buffer);
         int readBytes = recv (sock, buffer, expectedDataLen, 0); 
         if(readBytes==0){
             perror("connection is closed");
+            break;
         }
         else if(readBytes < 0){
             perror("error");
+            break;
         }
         else {
-            cout << string(buffer);
+            cout << buffer;
         }
     }
     close(sock);

@@ -22,16 +22,15 @@ using namespace std;
 // Main function
 int main (int size, char ** args) {
     string data;
-    // try to use port in args[1]
+    // try to use port in args[2]
     // if not, use default port
     int serverPort = 0;
-    int k;
     if (size != 3) {
         cout << "Error, Please Enter correct input next time" << endl;
         exit(1); 
     }
     try {
-        serverPort = stoi(args[1]);
+        serverPort = stoi(args[2]);
     } catch (exception e) {
         cout << "Error, Please Enter correct input next time" << endl;
         exit(1);
@@ -39,6 +38,7 @@ int main (int size, char ** args) {
     int sock = socket(AF_INET, SOCK_STREAM, 0);
     if (sock < 0) {
         perror("error creating socket");
+        exit (1);
     }
     struct sockaddr_in sin;
     memset(&sin, 0, sizeof(sin));
@@ -47,24 +47,29 @@ int main (int size, char ** args) {
     sin.sin_port = htons(serverPort);
     if (bind(sock, (struct sockaddr *) &sin, sizeof(sin)) < 0) {
         perror("error binding socket");
+        exit (1);
+    }
+    if (listen(sock, 5) < 0) {
+        perror("error listening to a socket");
+        exit(1);
     }
     DataSet *ds = new DataSet();
     // Read the csv file
-    ds->readCsv(args[2]);
+    ds->readCsv(args[1]);
     while (true) {
-        if (listen(sock, 5) < 0) {
-            perror("error listening to a socket");
-        }
         struct sockaddr_in client_sin;
         unsigned int addr_len = sizeof(client_sin);
         int client_sock = accept(sock, (struct sockaddr *) &client_sin, &addr_len);
         if (client_sock < 0) {
             perror("error accepting client");
+            continue;
         }
         while (true) {
             char buffer[4096];
+            memset (&buffer, 0,sizeof(buffer));
             int expected_data_len = sizeof(buffer);
             int read_bytes = recv(client_sock, buffer, expected_data_len, 0);
+            cout<<read_bytes<<endl;
             if (read_bytes == 0) {
                 break;
             }
@@ -72,41 +77,46 @@ int main (int size, char ** args) {
                 perror("error reading from client socket");
                 break;
             }
-            // Pointer to point the word returned by the strtok() function.
-            char * p;
-            string vec = "";
-             // Here, the delimiter is white space.
-            p = strtok(buffer, " ");
-            Distance *d;
-            while (p != NULL) {
-                d = getDistanceType(p);
-                if(d != NULL) {
-                    p = strtok(NULL, " ");
+            string input = string(buffer);
+            cout<<input<<endl;
+            vector <string> distancesStr = {"MAN","AUC","CHB","MIN","CAN"};
+            for (int i=0;i<5;i++){
+                size_t loc = input.find(distancesStr[i],0);
+                cout<<loc<<endl;
+                if (loc!=-1&&loc!=0&&loc+4<input.length()){
+                    string vecToCheck = input.substr(0,loc-1);
+                    cout<<"*"<<vecToCheck<<"*"<<endl;
+                    vector<double> vecToPredict=getVector (vecToCheck, ds->getVectorsSize());
+                    string disTocheck = input.substr(loc,3);
+                    cout<<"*"<<disTocheck<<"*"<<endl;
+                    Distance *disToPredict = getDistanceType(disTocheck);
+                    string kToCheck = input.substr(loc+4);
+                    cout<<"*"<<kToCheck<<"*"<<endl;
+                    int kToPredict = getK (kToCheck);
+                    bool b1 = vecToPredict.empty();
+                    bool b2 = disToPredict==NULL;
+                    bool b3 = kToPredict==-1;
+                    cout<<b1<<"\n"<<b2<<"\n"<<b3<<"\n";
+                    if (vecToPredict.empty()==true||disToPredict==NULL||kToPredict==-1){
+                        data = "invalid input";
+                    }
+                    else{
+                        if (kToPredict>ds->getDataSet().size()){
+                            data = "invalid input";
+                        }
+                        else{
+                            Knn knn(disToPredict, kToPredict, ds);
+                            data = knn.predict(vecToPredict);
+                        }                       
+                    }
                     break;
                 }
-                vec = vec + ' ' + p;
-                p = strtok(NULL, " ");
-            }
-            if (p != NULL) {
-                k = getK(p);
-                if (k == -1) {
+                else {
                     data = "invalid input";
-                }                    
-            } else {  // if i get to here it means there is no k or no distance
-                data = "invalid input";
-                k = -1;
+                }
             }
-            vector<double> toPredict = getVector(vec, ds->getVectorsSize());
-            if (toPredict.size() == 0) {
-                data = "invalid input";
-            }
-            if (k != -1 && toPredict.size() != 0  && d != NULL) {
-                Knn knn(d, k, ds);
-                data = knn.predict(toPredict);
-            } else {
-                data = "invalid input";
-            }
-            int sent_bytes = send(client_sock, data.c_str(), read_bytes, 0);
+            data+="\n";
+            int sent_bytes = send(client_sock, data.c_str(), sizeof(data), 0);
             if (sent_bytes < 0) {
                 perror("error sending to client");
             }

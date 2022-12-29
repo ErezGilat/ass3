@@ -45,7 +45,7 @@ bool isItProperInput(const std::string& inputStr, const std::string& pattern) {
 
 int getK(string input) {
     int k;
-    std::string ruleStrK = "^[0-9]+(.0+)?$";
+    std::string ruleStrK = "^[0-9]+(.0+)?( )?$";
     if (isItProperInput(input,ruleStrK)==true){
         k = stoi(input);
     } else {
