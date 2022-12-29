@@ -57,22 +57,22 @@ int main (int size, char ** args) {
     // Read the csv file
     ds->readCsv(args[1]);
     while (true) {
-        struct sockaddr_in client_sin;
-        unsigned int addr_len = sizeof(client_sin);
-        int client_sock = accept(sock, (struct sockaddr *) &client_sin, &addr_len);
-        if (client_sock < 0) {
+        struct sockaddr_in clientSin;
+        unsigned int addrLen = sizeof(clientSin);
+        int clientSock = accept(sock, (struct sockaddr *) &clientSin, &addrLen);
+        if (clientSock < 0) {
             perror("error accepting client");
             continue;
         }
         while (true) {
             char buffer[4096];
             memset (&buffer, 0,sizeof(buffer));
-            int expected_data_len = sizeof(buffer);
-            int read_bytes = recv(client_sock, buffer, expected_data_len, 0);
-            if (read_bytes == 0) {
+            int expectedDataLen = sizeof(buffer);
+            int readBytes = recv(clientSock, buffer, expectedDataLen, 0);
+            if (readBytes == 0) {
                 break;
             }
-            else if (read_bytes < 0) {
+            else if (readBytes < 0) {
                 perror("error reading from client socket");
                 break;
             }
@@ -106,12 +106,12 @@ int main (int size, char ** args) {
                 }
             }
             data+="\n";
-            int sent_bytes = send(client_sock, data.c_str(), data.size(), 0);
-            if (sent_bytes < 0) {
+            int sentBytes = send(clientSock, data.c_str(), data.size(), 0);
+            if (sentBytes < 0) {
                 perror("error sending to client");
             }
         }
-        close(client_sock);
+        close(clientSock);
     }
     return 0;
 }

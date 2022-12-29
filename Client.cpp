@@ -25,7 +25,7 @@ int main(int size, char** args){
         exit(1);
     }
     char * ipAdress=args[1];
-    int port_no=stoi(args[2]);
+    int portNo=stoi(args[2]);
     int sock = socket(AF_INET,SOCK_STREAM,0);
     if (sock<0){
         perror ("error creating socket");
@@ -35,7 +35,7 @@ int main(int size, char** args){
     memset (&sin, 0 , sizeof(sin));
     sin.sin_family = AF_INET;
     sin.sin_addr.s_addr = inet_addr(ipAdress);
-    sin.sin_port = htons(port_no);
+    sin.sin_port = htons(portNo);
     if(connect(sock,(struct sockaddr *)&sin, sizeof(sin))<0){
         perror("error connecting to server");
         exit(1);
