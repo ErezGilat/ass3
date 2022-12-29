@@ -69,7 +69,6 @@ int main (int size, char ** args) {
             memset (&buffer, 0,sizeof(buffer));
             int expected_data_len = sizeof(buffer);
             int read_bytes = recv(client_sock, buffer, expected_data_len, 0);
-            cout<<read_bytes<<endl;
             if (read_bytes == 0) {
                 break;
             }
@@ -78,25 +77,16 @@ int main (int size, char ** args) {
                 break;
             }
             string input = string(buffer);
-            cout<<input<<endl;
             vector <string> distancesStr = {"MAN","AUC","CHB","MIN","CAN"};
             for (int i=0;i<5;i++){
                 size_t loc = input.find(distancesStr[i],0);
-                cout<<loc<<endl;
                 if (loc!=-1&&loc!=0&&loc+4<input.length()){
                     string vecToCheck = input.substr(0,loc-1);
-                    cout<<"*"<<vecToCheck<<"*"<<endl;
                     vector<double> vecToPredict=getVector (vecToCheck, ds->getVectorsSize());
                     string disTocheck = input.substr(loc,3);
-                    cout<<"*"<<disTocheck<<"*"<<endl;
                     Distance *disToPredict = getDistanceType(disTocheck);
                     string kToCheck = input.substr(loc+4);
-                    cout<<"*"<<kToCheck<<"*"<<endl;
                     int kToPredict = getK (kToCheck);
-                    bool b1 = vecToPredict.empty();
-                    bool b2 = disToPredict==NULL;
-                    bool b3 = kToPredict==-1;
-                    cout<<b1<<"\n"<<b2<<"\n"<<b3<<"\n";
                     if (vecToPredict.empty()==true||disToPredict==NULL||kToPredict==-1){
                         data = "invalid input";
                     }
