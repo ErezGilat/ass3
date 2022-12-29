@@ -65,6 +65,11 @@ example:
 this line will send a request to the server to predict the value of the vector: 1 2 3 4 with Euclidean 
 distance function and 4 neighboors.
 
+If you want to finish the current run of client enter -1
+```
+-1
+
+```
 ## How to compile - 
 use one of the following commands -
 ```
@@ -82,3 +87,5 @@ or use
 
 ```
 to genertate server.out and client.outor individually
+
+
