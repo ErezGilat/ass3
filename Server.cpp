@@ -106,7 +106,7 @@ int main (int size, char ** args) {
                 }
             }
             data+="\n";
-            int sent_bytes = send(client_sock, data.c_str(), sizeof(data), 0);
+            int sent_bytes = send(client_sock, data.c_str(), data.size(), 0);
             if (sent_bytes < 0) {
                 perror("error sending to client");
             }
