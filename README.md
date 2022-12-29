@@ -1,4 +1,4 @@
-# KNN requests server
+# KNN requests server and client
 
 We are implementing the KNN algorithm with a server!
 It works with 5 distance calculation fourmals,
@@ -64,3 +64,21 @@ example:
 ```
 this line will send a request to the server to predict the value of the vector: 1 2 3 4 with Euclidean 
 distance function and 4 neighboors.
+
+## How to compile - 
+use one of the following commands -
+```
+make
+
+```
+this will genertate both server.out and client.out
+
+or use
+
+```
+	g++ -std=c++11 Server.cpp Minkowski.cpp Manhattan.cpp Knn.cpp GetInput.cpp Euclidean.cpp DataSet.cpp ClassifiedVector.cpp Chebyshev.cpp Canberra.cpp -o server.out
+
+    g++ -std=c++11 Client.cpp -o client.out
+
+```
+to genertate server.out and client.outor individually
