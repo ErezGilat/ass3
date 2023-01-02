@@ -37,7 +37,6 @@ ServerClass::ServerClass(int size, char ** args)
         exit(1);
     }
     createSocket();
-    bindSocket();
     ds->readCsv(args[1]);
 }
 
@@ -148,6 +147,7 @@ void ServerClass::closeClient ()
 {
     close(clientSock);
 }
+
 ServerClass::~ServerClass()
 {
 

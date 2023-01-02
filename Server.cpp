@@ -24,6 +24,7 @@ using namespace std;
 // Main function
 int main (int size, char ** args) {
     ServerClass *server = new ServerClass(size, args);
+    server->bindSocket();
     server->listenToSocket();
     while(true)
     {
