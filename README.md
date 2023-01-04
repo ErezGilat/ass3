@@ -4,10 +4,30 @@ We are implementing the KNN algorithm with a server!
 It works with 5 distance calculation fourmals,
 supportingg any csv file that you choose.
 
+## How to compile - 
+use one of the following commands -
+```
+make
+
+```
+this will genertate both server.out and client.out
+
+or use
+
+```
+	g++ -std=c++11 Server.cpp Minkowski.cpp Manhattan.cpp Knn.cpp GetInput.cpp Euclidean.cpp DataSet.cpp ClassifiedVector.cpp Chebyshev.cpp Canberra.cpp -o server.out
+
+    g++ -std=c++11 Client.cpp -o client.out
+
+```
+to genertate server.out and client.outor individually
+
 
 ## how to use the program
 first of all you need to make sure the program is successfully compiled (the guide is down below). 
-Then, in order to run the program you will need to write the following commands in the terminal.
+Then, in order to run the program you will need to write the following commands in the terminals - one for the server
+and one for the client.
+
 
 ### for the server -
 ```
@@ -70,22 +90,5 @@ If you want to finish the current run of client enter -1
 -1
 
 ```
-## How to compile - 
-use one of the following commands -
-```
-make
-
-```
-this will genertate both server.out and client.out
-
-or use
-
-```
-	g++ -std=c++11 Server.cpp Minkowski.cpp Manhattan.cpp Knn.cpp GetInput.cpp Euclidean.cpp DataSet.cpp ClassifiedVector.cpp Chebyshev.cpp Canberra.cpp -o server.out
-
-    g++ -std=c++11 Client.cpp -o client.out
-
-```
-to genertate server.out and client.outor individually
 
 
